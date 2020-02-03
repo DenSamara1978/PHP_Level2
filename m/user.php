@@ -1,4 +1,7 @@
 <?
+
+include_once ( 'db.php' );
+
 class User 
 {		
     public $connection;
@@ -10,11 +13,11 @@ class User
 
     public function registration ($login, $password) 
     {
-        $user = $this->connection->query("SELECT * FROM Users WHERE Login = '$login'" )->fetch();
+        $user = DB::getRow ( "SELECT * FROM Users WHERE Login = :login", array ( 'login' => $login ));
         if (!$user) 
         {
             $pass = $this->passwordField($login, strip_tags ( $password));
-    		$this->connection->exec("INSERT INTO Users VALUES (null, '$login', '$pass')");
+            DB::insert ( "INSERT INTO Users VALUES ( null, :login, :password )", array ( 'login' => $login, 'password' => $pass ));
 			return 'Вы зарегистрированы в системе, ' . $login . '!';
         }
         return 'Пользователь с таким логином уже зарегистрирован!';
@@ -22,7 +25,7 @@ class User
 
     public function login ($login, $password) 
     {
-    	$user = $this->connection->query("SELECT * FROM Users WHERE Login = '$login'" )->fetch();
+        $user = DB::getRow ( "SELECT * FROM Users WHERE Login = :login", array ( 'login' => $login ));
         if ($user) 
         {
             $pass = $this->passwordField($login, strip_tags ( $password ));
@@ -54,6 +57,6 @@ class User
 
     public function getUser ($id) 
     {
-		return $this->connection->query("SELECT * FROM Users WHERE Id = $id")->fetch();
+		return DB::getRow ( "SELECT * FROM Users WHERE Id = :id", array ( 'id' => $id ));
     }
 }
