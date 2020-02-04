@@ -11,22 +11,21 @@
 
 $action = 'action_' . ((isset($_GET['act'])) ? $_GET['act'] : 'index' );
 
+$controller = new C_Page ();
 if ( isset ( $_GET['c'] ))
 {
 	switch ($_GET['c'])
 	{
-	case 'page':
-		$controller = new C_Page();
+	case 'catalog':
+		$controller = new C_Catalog();
+		break;
+	case 'basket':
+		$controller = new C_Basket();
 		break;
 	case 'user':
 		$controller = new C_User();
 		break;
-	default:
-		$controller = new C_Page();
-		break;
 	}
 }
-else
-	$controller = new C_Page ();
 
 $controller->Request($action);

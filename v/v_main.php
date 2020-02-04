@@ -12,7 +12,8 @@
 	
 	<div id="menu">
 		<a href="index.php">На главную</a> |
-		<a href="index.php?c=page&act=edit">Редактировать</a> |
+		<a href="index.php?c=catalog&act=show">Каталог</a> |
+		<a href="index.php?c=basket&act=show">Корзина</a> |
 		<a href="<?=$act1?>"><?=$act1_caption?></a> |
 		<a href="<?=$act2?>"><?=$act2_caption?></a>
 	</div>
