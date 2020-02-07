@@ -1,0 +1,56 @@
+{% include 'menu.html' %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+	
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+
+</head>
+<body>
+<main>
+    <div class='goodsTable'>
+
+    {% for good in goods %}
+        <div class='goodsWrap'>
+
+        {% if good.discount > 0 %}
+            <div class="sticker"><img class="stickerImg" src="images/star.png"><span class="stickerTextFit">{{ good.discount }}%</span></div>
+        {% endif %}
+
+        {% if good.stickerFit == true %}
+            <div class="sticker"><img class="stickerImg" src="images/star.png"><span class="stickerTextFit">Fit!</span></div>
+        {% endif %}
+
+        {% if good.stickerHit == true %}
+            <div class="sticker"><img class="stickerImg" src="images/star.png"><span class="stickerTextHit">Hit!</span></div>
+        {% endif %}
+
+            <div class="wrapGoodImg">
+                <a href="index.php?c=page&act=good&id={{ good.id }}"><img class='goodImg'src="{{ good.miniPhoto }}"></a>
+            </div>
+            <div class="wrapGoodInfo">
+                <div class='goodsNameFull'>{{ good.nameFull }}</div>
+                <div class='goodsPrice'>{{ good.price }}<b>&#8381;</b></div>
+                <div class='goodsParam'><span><b>Состав: </b></span>{{ good.param }}</div>
+            </div>
+            <div class="btnWrap">
+                <input type='button' class='addToBasket btn' value='Дoбавить в корзину' {% if session == false %} style='display:none'{% endif %} onclick="addToBasket ( {{ good.id }} )" data-id='{{ good.id }}'>
+                <input type='button' class='deleteFromBasket btn' value='Удалить из корзины' {% if session == false %} style='display:none'{% endif %} onclick="deleteFromBasket ( {{ good.id }} )" data-id='{{ good.id }}'>
+            </div>
+        </div>
+    {% endfor %}
+
+    </div>
+
+    {% include 'footer.html' %}
+
+    <script src='js/my.js' defer></script>
+</main>
+</body>
+</html>

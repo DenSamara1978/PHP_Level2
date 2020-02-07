@@ -1,6 +1,6 @@
 <?php
 
-include_once('m/User.php');
+require_once ( 'm/User.php' );
 
 class C_User extends C_Base
 {
@@ -13,6 +13,7 @@ class C_User extends C_Base
 
 	public function action_info() 
 	{
+		$this->baseParam ();
 		$userInfo = $this->user->getUser ( $_SESSION ['user']) ;
 		$login = $userInfo ['Login'];
 		$this->title .= '::' . $login;
@@ -21,26 +22,30 @@ class C_User extends C_Base
 	
 	public function action_registration() 
 	{
-		$this->title .= '::Регистрация';
-
-		if($this->isPost()) 
-			$this->content = $this->Template('v/v_registration.php', array('caption' => $this->user->registration ( $_POST['login'], $_POST['password'])));
-		else
-			$this->content = $this->Template('v/v_registration.php', array());
+		$this->title .= ' | Регистрация';
+		$posted = $this->isPost ();
+		$message = $posted ? $this->user->registration ( $_POST ['name'], $_POST ['email'], $_POST ['login'], $_POST['pass'] ) : '';
+		$this->template = "registration.html";
+		$this->baseParam ();
+		$this->param = array_merge ( $this->param, array ( 'posted' => $posted, 'message' => $message ));
 	}
 
 	public function action_login() 
 	{
-		$this->title .= '::Вход';
-
-		if($this->isPost()) 
-			$this->content = $this->Template('v/v_login.php', array('caption' => $this->user->login ( $_POST['login'], $_POST['password'] )));
-		else
-			$this->content = $this->Template('v/v_login.php', array());
+		$this->title .= ' | Вход';
+		$posted = $this->isPost ();
+		$message = $posted ? $this->user->login ( $_POST ['login'], $_POST['pass'] ) : '';
+		$this->template = "login.html";
+		$this->baseParam ();
+		$this->param = array_merge ( $this->param, array ( 'posted' => $posted, 'message' => $message ));
 	}
 
 	public function action_logout() 
 	{
-		$result = $this->user->logout();
+		$this->user->logout();
+		$this->title .= ' | Выход';
+		$this->template = "login.html";
+		$this->baseParam ();
+		$this->param = array_merge ( $this->param, array ( 'posted' => true, 'message' => 'Мы будем рады видеть Вас снова!' ));
 	}
 }

@@ -1,23 +1,16 @@
 <?
 
-include_once ( 'db.php' );
+require_once ( 'db.php' );
 
 class User 
 {		
-    public $connection;
-
-    public function __construct () 
+    public function registration ( $name, $email, $login, $password) 
     {
-        $this->connection = new PDO ( "mysql:host=localhost;dbname=php_lvl2_les05", "root", "" );
-	}
-
-    public function registration ($login, $password) 
-    {
-        $user = DB::getRow ( "SELECT * FROM Users WHERE Login = :login", array ( 'login' => $login ));
-        if (!$user) 
+        $user = DB::getRow ( 'SELECT * FROM users WHERE Login = :login', array ( 'login' => $login ));
+        if ( !$user ) 
         {
             $pass = $this->passwordField($login, strip_tags ( $password));
-            DB::insert ( "INSERT INTO Users VALUES ( null, :login, :password )", array ( 'login' => $login, 'password' => $pass ));
+            DB::insert ( 'INSERT INTO users VALUES ( null, :name, :email, :login, :pass )', array ( 'name' =>$name, 'email' => $email, 'login' => $login, 'pass' => $pass ));
 			return 'Вы зарегистрированы в системе, ' . $login . '!';
         }
         return 'Пользователь с таким логином уже зарегистрирован!';
@@ -25,13 +18,13 @@ class User
 
     public function login ($login, $password) 
     {
-        $user = DB::getRow ( "SELECT * FROM Users WHERE Login = :login", array ( 'login' => $login ));
-        if ($user) 
+        $user = DB::getRow ( 'SELECT * FROM users WHERE Login = :login', array ( 'login' => $login ));
+        if ( $user ) 
         {
-            $pass = $this->passwordField($login, strip_tags ( $password ));
-            if ( $user['Password'] == $pass ) 
+            $pass = $this->passwordField ( $login, strip_tags ( $password ));
+            if ( $user ['pass'] == $pass ) 
             {
-                $_SESSION['user'] = $user['Id'];
+                $_SESSION ['user'] = $user ['id'];
    				return 'Добро пожаловать в систему, ' . $login . '!';
             }
     		return 'Пароль не верный!';
@@ -43,20 +36,20 @@ class User
     {
         if (isset($_SESSION['user'])) 
         {
-			$_SESSION['user'] = null;
+			$_SESSION ['user'] = null;
     		session_destroy();
 			return true;
 		} 
 		return false;
 	}
     
-    public function passwordField ($login, $password) 
+    public function passwordField ( $login, $password ) 
     {
-		return strrev(md5($login) . md5($password));
+		return strrev ( md5 ( $login) . md5 ( $password ));
     }
 
     public function getUser ($id) 
     {
-		return DB::getRow ( "SELECT * FROM Users WHERE Id = :id", array ( 'id' => $id ));
+		return DB::getRow ( "SELECT * FROM users WHERE id = :id", array ( 'id' => $id ));
     }
 }

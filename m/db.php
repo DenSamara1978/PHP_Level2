@@ -3,7 +3,7 @@
 class DB
 {
     const DB_HOST = 'localhost';
-    const DB_NAME = 'php_lvl2_les05';
+    const DB_NAME = 'php_lvl2_les07';
     const DB_USER = 'root';
     const DB_PASS = '';
     const DB_CHAR = 'utf8';
@@ -33,7 +33,6 @@ class DB
 
     private static function sql($sql, $args = []) 
     {
-        echo "<pre>".$sql."</pre>";
         $stmt = self::instance()->prepare($sql);
         $stmt->execute($args);
         return $stmt;
