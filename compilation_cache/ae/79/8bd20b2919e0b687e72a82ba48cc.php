@@ -20,7 +20,7 @@ class __TwigTemplate_ae798bd20b2919e0b687e72a82ba48cc extends Twig_Template
         // line 2
         echo "
 <!DOCTYPE html>
-<html>
+<html lang=\"ru\">
 <head>
     <meta charset=\"utf-8\">
     <title>Фотогаллерея</title>

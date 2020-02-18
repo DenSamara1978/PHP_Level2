@@ -52,4 +52,17 @@ class User
     {
 		return DB::getRow ( "SELECT * FROM users WHERE id = :id", array ( 'id' => $id ));
     }
+
+    public function getUserOrders ( $userId )
+    {
+        return DB::getRows ( 'SELECT * FROM orders WHERE user_id=:user_id', array ( 'user_id' => $userId ));
+    }
+
+    public function getUserOrder ( $userId, $orderId )
+    {
+        return DB::getRows ( 'SELECT basket.count AS count, goods.discount AS discount, goods.price AS price, goods.nameFull AS nameFull, 
+                                goods.id AS id, orders.timeOrder AS timeOrder, orders.delivery AS delivery 
+                              FROM basket INNER JOIN goods ON goods.id=basket.good_id INNER JOIN orders ON orders.id=basket.order_id 
+                              WHERE orders.id=:order_id AND orders.user_id=:user_id', array ( 'user_id' => $userId, 'order_id' => $orderId ));
+    }
 }

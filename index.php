@@ -9,6 +9,8 @@ $twig = new Twig_Environment ( $loader, array ( 'cache' => 'compilation_cache', 
 
 require_once 'c/C_Page.php';
 require_once 'c/C_User.php';
+require_once 'c/C_Order.php';
+require_once 'c/C_Admin.php';
 
 
 spl_autoload_register ( function ( $class )
@@ -17,18 +19,18 @@ spl_autoload_register ( function ( $class )
 });
 
 
-// index.php?c=page&act=index - Первая страница каталог
-// index.php?c=page&act=index&page=123 - Конкретная страница каталога
+// index.php?c=page&act=index - Каталог
 // index.php?c=page&act=good&id=123 - Карточка товара
-// index.php?c=page&act=cart - Корзина
-// index.php?c=page&act=orders - Заказы
-// index.php?c=page&act=order&id=123 - Просмотр заказа
 
 // index.php?c=page&act=guestbook - Страница отзывов
 // index.php?c=page&act=promo - Страница акций
 // index.php?c=page&act=contacts - Страница контактов
 
+// index.php?c=order&act=index - Страница оформления заказа
+// index.php?c=order&act=end - Страницы завершения заказа
+
 // index.php?c=user&act=regisrtation - Регистрация покупателя
+// index.php?c=user&act=history - Личный кабинет
 // index.php?c=user&act=login - Вход покупателя
 // index.php?c=user&act=logout - Выход покупателя
 
@@ -38,7 +40,11 @@ $controller = new C_Page ();
 if ( isset ( $_GET['c'] ))
 {
 	if ($_GET['c'] == 'user' )
-		$controller = new C_User();
+		$controller = new C_User ();
+	else if ($_GET['c'] == 'admin' )
+		$controller = new C_Admin ();
+	else if ($_GET['c'] == 'order' )
+		$controller = new C_Order ();
 }
 
 $controller->Request ( $action, $twig );

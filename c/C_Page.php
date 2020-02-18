@@ -24,21 +24,6 @@ class C_Page extends C_Base
 		$this->param = array_merge ( $this->param , array ( 'good' => $good ));
 	}
 
-	public function action_cart ()
-	{
-
-	}
-
-	public function action_order ()
-	{
-
-	}
-
-	public function action_orders ()
-	{
-
-	}
-
 	public function action_guestbook ()
 	{
 		$guestbook = new Guestbook ();

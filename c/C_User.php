@@ -11,15 +11,14 @@ class C_User extends C_Base
 		$this->user = new User ();
 	}
 
-	public function action_info() 
+	public function action_history ()
 	{
+		$this->title .= ' | История заказов';
+		$this->template = "history.html";
 		$this->baseParam ();
-		$userInfo = $this->user->getUser ( $_SESSION ['user']) ;
-		$login = $userInfo ['Login'];
-		$this->title .= '::' . $login;
-		$this->content = $this->Template('v/v_info.php', array('login' => $login ));
+		$this->param = array_merge ( $this->param, array ());
 	}
-	
+
 	public function action_registration() 
 	{
 		$this->title .= ' | Регистрация';

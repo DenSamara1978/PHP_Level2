@@ -63,10 +63,10 @@ class __TwigTemplate_460d25465ba156f716af9ce14b7b23bf extends Twig_Template
             // line 43
             echo "
                 <li class='nav-item'>
-                    <a class='nav-link' href='index.php?c=user&act=info'>Кабинет</a>
+                    <a class='nav-link' href=\"index.php?c=user&act=history\">Кабинет</a>
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link' href='index.php?c=user&act=logout'>Выйти (";
+                    <a class='nav-link' href=\"index.php?c=user&act=logout\">Выйти (";
             // line 48
             echo twig_escape_filter($this->env, (isset($context["login"]) ? $context["login"] : null), "html", null, true);
             echo ")</a>
@@ -77,10 +77,10 @@ class __TwigTemplate_460d25465ba156f716af9ce14b7b23bf extends Twig_Template
             // line 52
             echo "
                 <li class='nav-item'>
-                    <a class='nav-link' href='index.php?c=user&act=login'>Войти</a>
+                    <a class='nav-link' href=\"index.php?c=user&act=login\">Войти</a>
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link' href='index.php?c=user&act=registration'>Регистрация</a>
+                    <a class='nav-link' href=\"index.php?c=user&act=registration\">Регистрация</a>
                 </li>
 
                 ";
@@ -93,10 +93,10 @@ class __TwigTemplate_460d25465ba156f716af9ce14b7b23bf extends Twig_Template
             // line 63
             echo "                
                 <li class='nav-item'>
-                    <a class='nav-link' href='  /admin/admin.php'>Админка</a>
+                    <a class='nav-link' href=\"index.php?c=admin\">Управление товарами</a>
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link' href='  /admin/manager.php'>Управление заказами</a>
+                    <a class='nav-link' href=\"index.php?c=admin&act=manager\">Управление заказами</a>
                 </li>
 
                 ";
@@ -106,30 +106,34 @@ class __TwigTemplate_460d25465ba156f716af9ce14b7b23bf extends Twig_Template
             </ul>
 \t\t\t
         </div>
-\t\t<!-- Button trigger modal -->
-        <button class=\"btn btn-outline-success btn-primary basketInfoOut\" type=\"button\" onclick='renderBasketModal()' data-toggle=\"modal\" data-target=\"#bascketModal\">
-        
-            <strong>Корзина</strong><br><strong></strong>
         ";
-        // line 80
-        if ((isset($context["countGoodsOrder"]) ? $context["countGoodsOrder"] : null)) {
-            // line 81
-            echo "            ";
-            echo twig_escape_filter($this->env, (isset($context["countGoodsOrder"]) ? $context["countGoodsOrder"] : null), "html", null, true);
-            echo "
-        ";
-        } else {
-            // line 83
-            echo "            товаров нет(
+        // line 76
+        if (((isset($context["session"]) ? $context["session"] : null) == true)) {
+            // line 77
+            echo "            <button class=\"btn btn-outline-success btn-primary basketInfoOut\" type=\"button\" onclick='renderBasketModal ()' data-toggle=\"modal\" data-target=\"#basketModal\">
+            <strong>Корзина</strong><br><strong>
+            ";
+            // line 79
+            if ((isset($context["goodsCountInBasket"]) ? $context["goodsCountInBasket"] : null)) {
+                // line 80
+                echo "                ";
+                echo twig_escape_filter($this->env, (isset($context["goodsCountInBasket"]) ? $context["goodsCountInBasket"] : null), "html", null, true);
+                echo "
+            ";
+            } else {
+                // line 82
+                echo "                товаров нет(
+            ";
+            }
+            // line 84
+            echo "                </strong>
+            </button>
         ";
         }
-        // line 85
-        echo "            </strong>
-
-        </button>
-    </nav>
+        // line 87
+        echo "    </nav>
 \t<!-- Modal -->
-        <div class=\"modal fade\" id=\"bascketModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">
+        <div class=\"modal fade\" id=\"basketModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">
             <div class=\"modal-dialog\" role=\"document\">
                 <div class=\"modal-content\">
                     <div class=\"modal-header\">
@@ -142,7 +146,7 @@ class __TwigTemplate_460d25465ba156f716af9ce14b7b23bf extends Twig_Template
                     </div>
                     <div class=\"modal-footer\">
                         <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Продолжить покупки</button>
-                        <a href=\"  /public/order.php?id=<?= \$good['id'] ?>\"><button type=\"button\" class=\"btn btn-primary\">Оформить заказ</button></a>
+                        <a href=\"index.php?c=order\"><button type=\"button\" class=\"btn btn-primary\">Оформить заказ</button></a>
                     </div>
                 </div>
             </div>
@@ -165,6 +169,6 @@ class __TwigTemplate_460d25465ba156f716af9ce14b7b23bf extends Twig_Template
 
     public function getDebugInfo()
     {
-        return array (  127 => 85,  123 => 83,  117 => 81,  115 => 80,  105 => 72,  94 => 63,  92 => 62,  89 => 61,  78 => 52,  71 => 48,  64 => 43,  62 => 42,  19 => 1,);
+        return array (  134 => 87,  129 => 84,  125 => 82,  119 => 80,  117 => 79,  113 => 77,  111 => 76,  105 => 72,  94 => 63,  92 => 62,  89 => 61,  78 => 52,  71 => 48,  64 => 43,  62 => 42,  19 => 1,);
     }
 }

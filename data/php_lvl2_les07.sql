@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Фев 07 2020 г., 15:19
--- Версия сервера: 5.6.41
+-- Время создания: Фев 18 2020 г., 12:55
+-- Версия сервера: 5.6.41-log
 -- Версия PHP: 7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -30,37 +30,36 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `basket` (
   `id` int(10) NOT NULL,
-  `nameShort` varchar(30) NOT NULL,
-  `nameFull` varchar(100) NOT NULL,
-  `price` int(15) NOT NULL,
-  `param` text NOT NULL,
-  `weight` varchar(10) NOT NULL,
-  `bigPhoto` varchar(50) NOT NULL,
-  `miniPhoto` varchar(50) NOT NULL,
+  `user_id` int(10) NOT NULL,
+  `good_id` int(10) NOT NULL,
   `count` int(10) NOT NULL,
-  `discount` int(3) NOT NULL
+  `order_id` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
 --
--- Структура таблицы `clientinfo`
+-- Дамп данных таблицы `basket`
 --
 
-CREATE TABLE `clientinfo` (
-  `id` int(10) NOT NULL,
-  `timeOrder` int(10) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `phone` varchar(50) NOT NULL,
-  `discountCard` varchar(50) NOT NULL,
-  `persons` varchar(50) NOT NULL,
-  `pay` int(1) NOT NULL,
-  `money` varchar(50) NOT NULL,
-  `address` text NOT NULL,
-  `comment` text NOT NULL,
-  `delivery` int(1) DEFAULT NULL,
-  `desiredTime` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `basket` (`id`, `user_id`, `good_id`, `count`, `order_id`) VALUES
+(1, 11, 13, 2, 1),
+(2, 11, 14, 2, 1),
+(3, 11, 17, 2, 2),
+(4, 11, 18, 4, 2),
+(5, 11, 15, 3, 3),
+(6, 11, 16, 3, 3),
+(7, 11, 19, 4, 4),
+(8, 11, 20, 2, 4),
+(9, 11, 13, 1, 5),
+(10, 11, 14, 1, 5),
+(11, 11, 15, 1, 5),
+(12, 11, 18, 1, 6),
+(13, 11, 19, 1, 6),
+(14, 11, 14, 1, 7),
+(15, 11, 15, 1, 7),
+(16, 11, 13, 1, 8),
+(17, 11, 16, 1, 8),
+(18, 11, 13, 1, 9),
+(19, 11, 14, 1, 9);
 
 -- --------------------------------------------------------
 
@@ -158,19 +157,47 @@ INSERT INTO `goods` (`id`, `nameShort`, `nameFull`, `price`, `param`, `bigPhoto`
 (59, 'fukusima', 'Фукусима', 280, 'Семга, огурец, перец обжаренный в сухарях, сливочный сыр, хрустящий лук', 'img/fukusima.jpeg', 'imgMini/fukusima.jpeg', '285', 0, 0, 0, 0),
 (60, 'hirosima', 'Хиросима', 275, 'семга х.к., зеленый лук, сыр,огурец, тобико', 'img/hirosima.jpeg', 'imgMini/hirosima.jpeg', '260', 5, 0, 1, 16),
 (61, 'cezar', 'Цезарь', 265, 'Курица жар., сыр сливочный, сыр пармезан перец болгарский, салат, кунжут.', 'img/cezar.jpeg', 'imgMini/cezar.jpeg', '250', 0, 0, 1, 5),
-(62, 'shahmaty', 'Шахматы', 275, 'Лосось, огурец, тобико, сыр', 'img/shahmaty.jpeg', 'imgMini/shahmaty.jpeg', '260', 5, 1, 1, 72);
+(62, 'shahmaty', 'Шахматы', 275, 'Лосось, огурец, тобико, сыр', 'img/shahmaty.jpeg', 'imgMini/shahmaty.jpeg', '260', 5, 1, 1, 72),
+(72, 'novyj', 'Новый', 10, '', 'img/alyaska.jpeg', 'imgMini/alyaska.jpeg', '0', 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `ordertomanager`
+-- Структура таблицы `orders`
 --
 
-CREATE TABLE `ordertomanager` (
-  `idClient` int(10) NOT NULL DEFAULT '0',
-  `idGood` int(10) NOT NULL DEFAULT '0',
-  `count` int(10) DEFAULT NULL
+CREATE TABLE `orders` (
+  `id` int(10) NOT NULL,
+  `user_id` int(10) NOT NULL,
+  `timeOrder` int(10) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `phone` varchar(50) NOT NULL,
+  `discountCard` varchar(50) NOT NULL,
+  `payAmount` int(10) NOT NULL,
+  `persons` varchar(50) NOT NULL,
+  `pay` int(1) DEFAULT NULL,
+  `money` varchar(50) NOT NULL,
+  `address` text NOT NULL,
+  `comment` text NOT NULL,
+  `delivery` int(1) DEFAULT NULL,
+  `desiredTime` varchar(50) NOT NULL,
+  `status` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `timeOrder`, `name`, `phone`, `discountCard`, `payAmount`, `persons`, `pay`, `money`, `address`, `comment`, `delivery`, `desiredTime`, `status`) VALUES
+(1, 11, 1581962964, '', '', '', 0, '', 0, '', '', '', 1, '', 1),
+(2, 11, 1581963150, 'Python', '123321', '334455', 0, '1', 0, '5000', 'afgjkhlafg', 'qwqwqw', 0, '10-00', 1),
+(3, 11, 1581964344, '', '', '', 0, '', 0, '', '', '', 0, '', 1),
+(4, 11, 1581965292, '', '', '', 0, '', 0, '', '', '', 0, '', 1),
+(5, 11, 1581965576, '', '', '', 0, '', 0, '', '', '', 0, '', 1),
+(6, 11, 1581965623, '', '', '', 0, '', 0, '', '', '', 0, '', 1),
+(7, 11, 1581968590, 'dddd', '1111', '2222', 0, '3', 0, '5000', 'qwfwe', 'qwrwet', 0, '1000', 1),
+(8, 11, 1581969013, '', '', '', 123456, '', 0, '', '', '', 1, '', 1),
+(9, 11, 1581969226, '', '', '', 498, '', 0, '', '', '', 0, '', 1);
 
 -- --------------------------------------------------------
 
@@ -192,7 +219,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `login`, `pass`) VALUES
 (10, 'Den', 'den_sam@mail.ru', 'admin', '3cf108a4e0a498347a5a75a792f232123cf108a4e0a498347a5a75a792f23212'),
-(11, 'Denis', 'den_sam@mail.ru', 'denis', 'ea61e32c910cb3b3f224c44f70d5783cea61e32c910cb3b3f224c44f70d5783c');
+(11, 'Денис', 'den_sam@mail.ru', 'denis', 'ea61e32c910cb3b3f224c44f70d5783cea61e32c910cb3b3f224c44f70d5783c');
 
 --
 -- Индексы сохранённых таблиц
@@ -202,12 +229,6 @@ INSERT INTO `users` (`id`, `name`, `email`, `login`, `pass`) VALUES
 -- Индексы таблицы `basket`
 --
 ALTER TABLE `basket`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `clientinfo`
---
-ALTER TABLE `clientinfo`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -223,11 +244,10 @@ ALTER TABLE `goods`
   ADD PRIMARY KEY (`id`);
 
 --
--- Индексы таблицы `ordertomanager`
+-- Индексы таблицы `orders`
 --
-ALTER TABLE `ordertomanager`
-  ADD PRIMARY KEY (`idGood`,`idClient`),
-  ADD KEY `idClient` (`idClient`);
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Индексы таблицы `users`
@@ -240,39 +260,34 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT для таблицы `clientinfo`
+-- AUTO_INCREMENT для таблицы `basket`
 --
-ALTER TABLE `clientinfo`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `basket`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT для таблицы `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT для таблицы `goods`
 --
 ALTER TABLE `goods`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+
+--
+-- AUTO_INCREMENT для таблицы `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- Ограничения внешнего ключа сохраненных таблиц
---
-
---
--- Ограничения внешнего ключа таблицы `ordertomanager`
---
-ALTER TABLE `ordertomanager`
-  ADD CONSTRAINT `ordertomanager_ibfk_1` FOREIGN KEY (`idClient`) REFERENCES `clientinfo` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `ordertomanager_ibfk_2` FOREIGN KEY (`idGood`) REFERENCES `goods` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

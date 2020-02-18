@@ -20,7 +20,7 @@ class __TwigTemplate_d2a9dab21204fa10b80b7e8f7ceadd13 extends Twig_Template
         // line 2
         echo "
 <!DOCTYPE html>
-<html>
+<html lang=\"ru\">
 <head>
     <meta charset=\"utf-8\">
     <title>";

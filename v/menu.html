@@ -42,19 +42,19 @@
                 {% if session %}
 
                 <li class='nav-item'>
-                    <a class='nav-link' href='index.php?c=user&act=info'>Кабинет</a>
+                    <a class='nav-link' href="index.php?c=user&act=history">Кабинет</a>
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link' href='index.php?c=user&act=logout'>Выйти ({{ login }})</a>
+                    <a class='nav-link' href="index.php?c=user&act=logout">Выйти ({{ login }})</a>
                 </li>
 
                 {% else %}
 
                 <li class='nav-item'>
-                    <a class='nav-link' href='index.php?c=user&act=login'>Войти</a>
+                    <a class='nav-link' href="index.php?c=user&act=login">Войти</a>
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link' href='index.php?c=user&act=registration'>Регистрация</a>
+                    <a class='nav-link' href="index.php?c=user&act=registration">Регистрация</a>
                 </li>
 
                 {% endif %}
@@ -62,10 +62,10 @@
                 {% if admin == true %}
                 
                 <li class='nav-item'>
-                    <a class='nav-link' href='  /admin/admin.php'>Админка</a>
+                    <a class='nav-link' href="index.php?c=admin">Управление товарами</a>
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link' href='  /admin/manager.php'>Управление заказами</a>
+                    <a class='nav-link' href="index.php?c=admin&act=manager">Управление заказами</a>
                 </li>
 
                 {% endif %}
@@ -73,21 +73,20 @@
             </ul>
 			
         </div>
-		<!-- Button trigger modal -->
-        <button class="btn btn-outline-success btn-primary basketInfoOut" type="button" onclick='renderBasketModal()' data-toggle="modal" data-target="#bascketModal">
-        
-            <strong>Корзина</strong><br><strong></strong>
-        {% if countGoodsOrder %}
-            {{ countGoodsOrder }}
-        {% else %}
-            товаров нет(
+        {% if session == true %}
+            <button class="btn btn-outline-success btn-primary basketInfoOut" type="button" onclick='renderBasketModal ()' data-toggle="modal" data-target="#basketModal">
+            <strong>Корзина</strong><br><strong>
+            {% if goodsCountInBasket %}
+                {{ goodsCountInBasket }}
+            {% else %}
+                товаров нет(
+            {% endif %}
+                </strong>
+            </button>
         {% endif %}
-            </strong>
-
-        </button>
     </nav>
 	<!-- Modal -->
-        <div class="modal fade" id="bascketModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="basketModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -100,7 +99,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Продолжить покупки</button>
-                        <a href="  /public/order.php?id=<?= $good['id'] ?>"><button type="button" class="btn btn-primary">Оформить заказ</button></a>
+                        <a href="index.php?c=order"><button type="button" class="btn btn-primary">Оформить заказ</button></a>
                     </div>
                 </div>
             </div>

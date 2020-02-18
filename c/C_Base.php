@@ -2,6 +2,7 @@
 
 require_once ( 'c/C_Controller.php' );
 require_once ( 'm/user.php' );
+require_once ( 'm/basket.php' );
 
 abstract class C_Base extends C_Controller
 {
@@ -30,7 +31,8 @@ abstract class C_Base extends C_Controller
 			$login = $userInfo [ 'login' ];
 			$admin = ( $login == 'admin' );
 		}
-		$countGoodsOrder = Goods::countGoodsOrder ();
-		$this->param = array ( 'session' => $session, 'login' => $login, 'admin' => $admin, 'countGoodsOrder' => $countGoodsOrder );
+		$basket = new Basket ();
+		$goodsCountInBasket = $basket->getGoodsCountInBasket ( $_SESSION ['user'] );
+		$this->param = array ( 'session' => $session, 'login' => $login, 'admin' => $admin, 'goodsCountInBasket' => $goodsCountInBasket );
 	}
 }
