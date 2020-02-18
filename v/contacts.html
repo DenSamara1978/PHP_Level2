@@ -1,0 +1,37 @@
+{% include 'menu.html' %}
+ 
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>{{ title }}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles.css" type="text/css" media="all">
+</head>
+<body>
+
+<div id="container">
+    <div class="leftblock">
+    </div>
+    <div class="content">
+        <h1>Наш адрес:</h1>
+        <p><b>Телефон:</b> 8 495 647-93-12</p>
+        <p><b>Адрес:</b> г. Москва, 2-я улица Машиностроения, дом 11</p>
+        <p><b>Email:</b> noutbuk@mail.ru</p>
+        <p>Здесь будет описание того, как легко, быстро и непринужденно мы будем обслуживать клиентов на любом удалении от наших торговых точек.</p>
+        <div class="map">
+            <script type="text/javascript" charset="utf-8" async
+                    src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A3c1948155bb548fe663673b36ab421c033da92c82f0cd30937890052e747cb8c&amp;width=100%&amp;height=400&amp;lang=ru_RU&amp;scroll=true"></script>
+        </div>
+        <hr>
+    </div>
+
+    {% include 'footer.html' %}
+
+</div>
+<script src='../js/my.js' defer></script>
+</body>
+</html

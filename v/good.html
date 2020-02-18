@@ -1,0 +1,54 @@
+{% include 'menu.html' %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+			<link rel="stylesheet" href="styles.css" type="text/css" media="all">
+</head>
+<body>
+	<div class='goodsWrapItem'>
+		<div class="wrapGoodImgItem">
+            <img class='goodImg'src="{{ good.bigPhoto }}">
+        </div>
+		<div class="wrapGoodInfo">
+			<div class='goodsNameFull'>{{ good.nameFull }}</div>
+            <div class='goodsPriceItem'>{{ good.price }}<b>&#8381;</b></div>
+            <div class='goodsParam'><span><b>Состав: </b></span>{{ good.param }}</div>
+        	<div class='goodsWeightItem'><span><b>Вес: </b></span>{{ good.weight }} гр./порцию</div>
+
+			{% if good.discount > 0 %}
+				<div class="stickerItem"><img class="stickerImgItem" src="/images/star.png"><span class="stickerTextItem">{{ good.discount }}%</span>
+					<div class="explain">блюдо со скидкой дня {{ good.discount }}%</div>
+				</div>
+			{% endif %}
+
+			{% if good.stickerFit == true %}
+				<div class="stickerItem"><img class="stickerImgItem" src="/images/star.png"><span class="stickerTextItem">Fit!</span> 
+					<div class="explain">блюдо с низкой калорийностью</div>
+				</div>
+			{% endif %}
+
+			{% if good.stickerHit == true %}
+				<div class="stickerItem"><img class="stickerImgItem" src="/images/star.png"><span class="stickerTextItem">Hit!</span>
+					<div class="explain">популярное блюдо</div>
+				</div>
+			{% endif %}
+
+		</div>
+		<div class="btnWrapItem">
+            <input type='button' class='addToBasket btn' value='Дoбавить в корзину' {% if session == false %} style='display:none'{% endif %} onclick="addToBasket( {{ good.id }} )" data-id='{{ good.id }}'>
+            <input type='button' class='deleteFromBasket btn' value='Удалить из корзины' {% if session == false %} style='display:none'{% endif %} onclick="deleteFromBasket( {{ good.id }} )" data-id='{{ good.id }}'>
+		</div>
+    </div>
+
+	{% include 'footer.html' %}
+
+<script src='js/my.js'></script>
+</body>
+</html>
